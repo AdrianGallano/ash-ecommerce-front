@@ -1,0 +1,38 @@
+
+<div class="flex items-center justify-center min-h-screen bg-white">
+  <div class="w-full max-w-xs">
+    <form (ngSubmit)="register()" class="bg-white shadow-xl rounded-2xl px-6 pt-4 pb-6 mb-4">
+      <h2 class="text-3xl font-extrabold text-center mb-6 text-gray-800">Register</h2>
+      
+      <div class="mb-4">
+        <label for="username" class="block mb-2 text-lg font-semibold text-gray-800">Username</label>
+        <input [(ngModel)]="users.username" name="username" type="text" id="username" class="shadow-md bg-gray-100 border border-gray-300 text-gray-900 text-md rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Username" required>
+        <span *ngIf="errors.username" class="text-red-600">{{ errors.username }}</span>
+      </div>
+      
+      <div class="mb-4">
+        <label for="email" class="block mb-2 text-lg font-semibold text-gray-800">Your email</label>
+        <input [(ngModel)]="users.email" name="email" type="email" id="email" class="shadow-md bg-gray-100 border border-gray-300 text-gray-900 text-md rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@gmail.com" required>
+        <span *ngIf="errors.email" class="text-red-600">{{ errors.email }}</span>
+      </div>
+      
+      <div class="mb-4">
+        <label for="password" class="block mb-2 text-lg font-semibold text-gray-800">Password</label>
+        <input [(ngModel)]="users.password" name="password" type="password" id="password" class="shadow-md bg-gray-100 border border-gray-300 text-gray-900 text-md rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="••••••••" required>
+        <span *ngIf="errors.password" class="text-red-600">{{ errors.password }}</span>
+      </div>
+      
+      <div class="mb-4">
+        <label for="confirm-password" class="block mb-2 text-lg font-semibold text-gray-800">Confirm Password</label>
+        <input [(ngModel)]="users.confirm_password" name="confirm_password" type="password" id="confirm-password" class="shadow-md bg-gray-100 border border-gray-300 text-gray-900 text-md rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="••••••••" required>
+        <span *ngIf="errors.password1" class="text-red-600">{{ errors.password1 }}</span>
+      </div>
+      
+      <button type="submit" class="w-full text-white bg-black hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-xl text-md px-5 py-3">Register</button>
+      
+      <div class="mt-4 text-center">
+        <span class="text-md font-semibold text-gray-800">Already have an account? <a href="/login" class="text-blue-800 hover:underline">Login</a></span>
+      </div>
+    </form>
+  </div>
+</div>

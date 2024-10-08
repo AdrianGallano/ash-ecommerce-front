@@ -1,0 +1,19 @@
+<app-navigation-bar></app-navigation-bar>
+<div class="flex items-center justify-center min-h-screen bg-white">
+  <form (ngSubmit)="login()" class="w-full bg-white shadow-xl rounded-2xl px-10 pt-8 pb-10 mb-4 max-w-md mx-auto">
+    <h2 class="text-3xl font-extrabold text-center mb-8 text-gray-800">Login</h2>
+    <div class="mb-6">
+      <label for="email" class="block mb-2 text-lg font-semibold text-gray-800">Your email</label>
+      <input [(ngModel)]="credentials.email" name="email" type="email" id="email" class="shadow-md bg-gray-100 border border-gray-300 text-gray-900 text-md rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="name@gmail.com" required />
+      <span *ngIf="error" class="text-red-600">{{ error }}</span>
+    </div>
+    <div class="mb-6">
+      <label for="password" class="block mb-2 text-lg font-semibold text-gray-800">Your password</label>
+      <input [(ngModel)]="credentials.password" name="password" type="password" id="password" class="shadow-md bg-gray-100 border border-gray-300 text-gray-900 text-md rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3" placeholder="••••••••" required />
+    </div>
+    <button type="submit" class="w-full text-white bg-black hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-xl text-md px-5 py-3">Login</button>
+    <div class="mt-6 text-center">
+      <span class="text-md font-semibold text-gray-800">Don't have an account? <a routerLink="/register" class="text-blue-800 hover:underline">Register</a></span>
+    </div>
+  </form>
+</div>

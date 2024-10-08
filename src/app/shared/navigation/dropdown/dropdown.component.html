@@ -1,0 +1,18 @@
+<div class="relative cursor-pointer transition-transform transform hover:scale-105">
+  <div class="relative">
+    <img routerLink="/cart" class="w-10 h-10 object-cover transition duration-300" src="assets/images/product/tray.png" alt="cart image" />
+    <span class="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-white bg-red-600 rounded-full -translate-x-1/2 -translate-y-1/2">{{ cartItemCount }}</span>
+  </div>
+  <div class="dropdown-menu absolute right-0 mt-2 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none transition ease-in-out duration-300" [class.hidden]="!isOpen">
+    <div class="px-4 py-3 bg-gray-100 rounded-t-lg">
+      <p class="text-sm text-gray-900">{{ userInfo.username }}</p>
+      <p class="text-sm font-medium text-gray-600 truncate">{{ userInfo.email }}</p>
+    </div>
+    <ul class="py-1">
+      <li>
+        <a routerLink="/cart" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300">Cart</a>
+      </li>
+    </ul>
+  </div>
+</div>
+

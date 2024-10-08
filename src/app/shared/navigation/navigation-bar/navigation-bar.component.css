@@ -1,0 +1,26 @@
+nav {
+    transition: background 0.3s ease-in-out;
+  }
+  
+  nav:hover {
+    background: linear-gradient(to right, #2c3e50, #34495e, #2c3e50);
+  }
+  
+  nav .flex a:hover {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  }
+  
+  nav .flex ul li button:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  nav .flex ul li app-dropdown, 
+  nav .flex ul li app-user-dropdown {
+    transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  nav .flex ul li:hover app-dropdown, 
+  nav .flex ul li:hover app-user-dropdown {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+  }

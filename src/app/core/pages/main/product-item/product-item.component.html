@@ -1,0 +1,65 @@
+
+<div class="fixed inset-0 flex items-start justify-center bg-black bg-opacity-50 z-50 overflow-y-auto">
+  <div class="relative bg-white rounded-2xl shadow-2xl w-11/12 max-w-5xl my-10 p-8">
+    <button (click)="onClose()" class="absolute top-4 right-4 text-gray-700 hover:text-gray-400 text-3xl font-bold">
+      &times;
+    </button>
+    <div class="p-6">
+      <div class="flex flex-col md:flex-row">
+        <div class="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
+          <img [src]="product?.product_image" alt="Product Image" class="object-cover w-full h-full rounded-xl shadow-md" />
+        </div>
+        <div class="w-full md:w-1/2 md:ml-10">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ product?.product_name }}</h2>
+          <p class="text-gray-700 mb-6 leading-relaxed">{{ product?.product_description }}</p>
+          <span class="text-3xl font-bold text-gray-900">₱{{ product?.product_price }}</span>
+          
+          <!-- Size Selector -->
+          <div class="mt-8">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Drinks</h3>
+            <div class="flex space-x-3">
+              <span *ngFor="let size of sizes" 
+                    (click)="onSizeSelect(size.size_id)"
+                    [class.selected]="size.size_id === selectedSize"
+                    class="px-4 py-2 border border-gray-300 rounded-lg cursor-pointer transition-colors hover:bg-gray-200">
+                {{ size.size_label }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Quantity Selector -->
+          <div class="mt-6">
+            <span *ngIf="error" class="text-red-600">{{ error }}</span>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Quantity (Available: {{ availableStock }})</h3>
+            <input type="number" [(ngModel)]="quantity" min="1" class="border border-gray-300 rounded-lg px-4 py-2 w-24" />
+          </div>
+
+          <button (click)="addToCart()" 
+                  [disabled]="!selectedSize" 
+                  class="mt-6 bg-blue-600 text-white px-8 py-3 rounded-lg shadow hover:bg-blue-700 disabled:bg-gray-400 transition-colors">
+            Add to tray
+          </button>
+        </div>
+      </div>
+      <div class="mt-12">
+        <h3 class="text-2xl font-semibold text-gray-900 mb-6">Other Products</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <div *ngFor="let otherProduct of filteredProducts" 
+               (click)="switchToProduct(otherProduct)"
+               class="bg-white border border-gray-200 rounded-xl shadow-lg cursor-pointer transform hover:scale-105 transition-transform">
+            <img [src]="otherProduct.product_image" alt="Product Image" class="object-cover w-full h-48 rounded-t-xl" />
+            <div class="p-4">
+              <h4 class="text-lg font-semibold text-gray-900">{{ otherProduct.product_name }}</h4>
+              <p class="text-gray-700 mb-2">{{ otherProduct.product_price }}</p>
+              <button (click)="switchToProduct(otherProduct)" 
+                      class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors">
+                View Product
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

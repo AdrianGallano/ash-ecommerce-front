@@ -1,0 +1,8 @@
+<h1 mat-dialog-title class="text-2xl font-bold text-center text-gray-800">Confirm Add to Tray</h1>
+<div mat-dialog-content class="text-center">
+  <p class="text-gray-700">Are you sure you want to add <span class="font-semibold">{{ data.name }}</span> to your tray?</p>
+</div>
+<div mat-dialog-actions class="flex justify-center mt-4">
+  <button mat-button (click)="onCancel()" class="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200">Cancel</button>
+  <button mat-button color="primary" (click)="onConfirm()" class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors duration-200 ml-4">Confirm</button>
+</div>

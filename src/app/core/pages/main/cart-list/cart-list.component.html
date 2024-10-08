@@ -1,0 +1,86 @@
+<app-navigation-bar></app-navigation-bar>
+<div class="container mx-auto p-4 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6 mt-12">
+    <!-- Cart Section -->
+    <div class="flex-1">
+        <div class="bg-gray-50 shadow-lg rounded-xl px-8 pt-6 pb-8 mb-4">
+            <h2 class="text-3xl font-bold text-center mb-6 text-gray-800">Your Cart</h2>
+            <div *ngIf="products.length === 0" class="text-center text-gray-500">
+                Your cart is empty.
+            </div>
+            <div *ngIf="products && products.length > 0">
+                <!-- Select All Checkbox and Delete All Button -->
+                <div class="mb-4 flex items-center justify-start">
+                    <!-- Select All Checkbox -->
+                    <input 
+                        type="checkbox" 
+                        id="selectAll" 
+                        (change)="selectAll($event)" 
+                        [checked]="allSelected()"
+                        class="custom-checkbox mr-2"
+                    />
+                    <label for="selectAll" class="mr-4 font-medium text-gray-700">Select All</label>
+                    
+                    <!-- Delete All Button -->
+                    <button 
+                        (click)="deleteAllSelected()"
+                        class="text-red-600 hover:text-red-800 cursor-pointer"
+                        *ngIf="hasSelectedItems()"
+                    >
+                        Delete All
+                    </button>
+                </div>
+                
+                <ul class="divide-y divide-gray-200">
+                    <li *ngFor="let item of products; let i = index" class="py-4 w-full flex items-center justify-between cursor-pointer">
+                        <div class="flex items-center space-x-4">
+                            <!-- Checkbox for each item -->
+                            <input 
+                                type="checkbox" 
+                                [checked]="item.selected" 
+                                (change)="toggleSelection(item)"
+                                class="custom-checkbox mr-4"
+                            />
+                            <img [src]="item.product_image" alt="Product Image" class="w-20 h-20 object-cover rounded-lg">
+                            <div>
+                                <h2 class="text-xl font-semibold text-gray-800">{{ item.product_name }}</h2>
+                                <p class="text-gray-600">Drinks: {{ item.size_label }}</p>
+                                <p class="text-gray-600">Price: ₱{{ item.product_price }}</p>
+                                <p class="flex items-center space-x-2">
+                                    <button (click)="decreaseQuantity(item.product_id, item.size_id, item.quantity)" class="px-3 py-1 bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">-</button>
+                                    <input 
+                                        type="number" 
+                                        [value]="item.quantity" 
+                                        (input)="onQuantityChange($event, item.product_id, item.size_id)" 
+                                        class="w-16 text-center border border-gray-300 rounded-lg mx-2"
+                                        min="1" 
+                                    />
+                                    <button (click)="increaseQuantity(item.product_id, item.size_id, item.quantity)" class="px-3 py-1 bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">+</button>
+                                </p>
+                            </div>
+                        </div>
+                        <button (click)="removeFromCart(item.product_id, item.size_id)" class="text-red-600 hover:text-red-800 cursor-pointer">
+                            Remove
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+     <!-- Checkout Summary Section -->
+    <div class="w-full md:w-80 bg-gray-50 shadow-xl p-6 rounded-lg h-fit">
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Checkout Summary</h3>
+        <div *ngIf="hasSelectedItems()">
+            <p class="text-lg font-semibold mb-4 text-gray-700">Total: ₱{{ getTotalPrice() }}</p>
+            <button 
+                (click)="goToCheckout()" 
+                class="w-full text-white bg-indigo-600 hover:bg-indigo-500 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 cursor-pointer"
+            >
+                Checkout
+            </button>
+        </div>
+        <div *ngIf="!hasSelectedItems()">
+            <p class="text-gray-500">Please select at least one item to proceed.</p>
+        </div>
+    </div>
+</div>

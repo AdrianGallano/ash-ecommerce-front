@@ -1,0 +1,64 @@
+<app-navigation-bar></app-navigation-bar>
+
+<div class="container mx-auto p-4" [class.blurred]="selectedProduct">
+  <div class="py-8 px-4 mx-auto max-w-screen-xl min-h-screen lg:py-16 lg:px-6">
+    <!-- Category Filter -->
+    <div class="mb-8">
+      <div class="flex flex-wrap bg-gray-50 shadow-lg rounded-lg p-4">
+        <button 
+          (click)="onSelectCategory(null)"
+          class="px-6 py-3 rounded-lg mr-2 mb-2 transition-all transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [class.bg-blue-600]="selectedCategory === null"
+          [class.text-white]="selectedCategory === null"
+          [class.bg-white]="selectedCategory !== null"
+          [class.text-blue-600]="selectedCategory !== null">
+          All Products
+        </button>
+        <div class="flex flex-wrap w-full">
+          <button 
+            *ngFor="let category of categories" 
+            (click)="onSelectCategory(category.category_id)"
+            class="px-6 py-3 rounded-lg mr-2 mb-2 transition-all transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            [class.bg-blue-600]="selectedCategory === category.category_id"
+            [class.text-white]="selectedCategory === category.category_id"
+            [class.bg-white]="selectedCategory !== category.category_id"
+            [class.text-blue-600]="selectedCategory !== category.category_id">
+            {{ category.category_name }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="mb-8">
+      <input
+        type="text"
+        placeholder="Search products..."
+        [(ngModel)]="searchTerm"
+        (input)="filterProducts()"
+        class="p-4 rounded-lg w-full transition-all transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <!-- Product List -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <app-item-cards
+        *ngFor="let product of filteredProducts"
+        [id]="product.product_id"
+        [name]="product.product_name"
+        [description]="product.product_description"
+        [price]="product.product_price"
+        [image]="product.product_image"
+        (selectProduct)="onSelectProduct(product)"
+        (addToCart)="onAddToCart($event)">
+      </app-item-cards>
+    </div>
+  </div>
+</div>
+
+<app-product-item
+  *ngIf="selectedProduct"
+  [product]="selectedProduct"
+  (closePopup)="onClosePopup()"
+  (switchProduct)="onSwitchProduct($event)">
+</app-product-item>

@@ -1,0 +1,57 @@
+
+<button (click)="goToAdmin()" class="ml-6 mt-4 px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 rounded-full shadow-md transform transition-transform duration-200 ease-in-out hover:scale-105">
+  Back
+</button>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8 bg-gray-50">
+
+  <div *ngFor="let product of products" class="border border-gray-300 rounded-xl shadow-xl bg-white overflow-hidden transform transition-transform duration-300 hover:scale-105">
+    <!-- Product Image -->
+    <div class="relative">
+      <img [src]="product.product_image" alt="{{ product.product_name }}" class="w-full h-48 object-cover">
+      <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center text-white text-xl font-extrabold tracking-wide">
+        {{ product.product_name }}
+      </div>
+    </div>
+    <!-- Product Details -->
+    <div class="p-6">
+      <div class="mb-4">
+        <label for="stock" class="block text-gray-700 font-medium">Product Stock</label>
+        <input class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               type="number" 
+               [(ngModel)]="product.stock" 
+               placeholder="Enter stock" 
+               (change)="updateStock(product.product_id, product.stock)" />
+      </div>
+      <div class="mb-6">
+        <h4 class="text-lg font-semibold mb-3">Categories</h4>
+        <div class="flex flex-wrap gap-3">
+          <ng-container *ngFor="let category of categories">
+            <label class="flex items-center text-sm font-medium">
+              <input type="checkbox" 
+                     [value]="category.category_id" 
+                     (change)="onCategoryChange($event, product.product_id)" 
+                     [checked]="productCategories[product.product_id].includes(category.category_id)"
+                     class="mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              {{ category.category_name }}
+            </label>
+          </ng-container>
+        </div>
+      </div>
+      <div>
+        <h4 class="text-lg font-semibold mb-3">Drinks</h4>
+        <div class="flex flex-wrap gap-3">
+          <ng-container *ngFor="let size of sizes">
+            <label class="flex items-center text-sm font-medium">
+              <input type="checkbox" 
+                     [value]="size.size_id" 
+                     (change)="onSizeChange($event, product.product_id)" 
+                     [checked]="productSizes[product.product_id].includes(size.size_id)"
+                     class="mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              {{ size.size_label }}
+            </label>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

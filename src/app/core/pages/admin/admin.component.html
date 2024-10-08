@@ -1,0 +1,102 @@
+<div class="relative">
+  <!-- Main Form -->
+  <div class="container mx-auto p-4">
+    <div class="flex justify-between mb-4">
+      <button (click)="goToProductList()" class="mt-4 px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 rounded-lg shadow-lg transition duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Return to Product List
+      </button>
+      <button (click)="goToHandleProducts()" class="mt-4 px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 rounded-lg shadow-lg transition duration-200">
+        Manage Products
+      </button>
+    </div>
+    <div class="bg-white shadow-2xl rounded-lg p-8">
+      <h2 class="text-4xl font-bold text-center mb-8 text-gray-900">Add a New Product</h2>
+      <form (ngSubmit)="onSubmit()" #productForm="ngForm">
+        <div class="grid grid-cols-1 gap-6">
+          <div>
+            <label for="product_name" class="block text-gray-700 font-medium mb-2">Product Name</label>
+            <input type="text" id="product_name" name="product_name" [(ngModel)]="product.product_name" required class="block w-full border border-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="product_description" class="block text-gray-700 font-medium mb-2">Product Description</label>
+            <textarea id="product_description" name="product_description" [(ngModel)]="product.product_description" required class="block w-full border border-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+          </div>
+          <div>
+            <label for="product_price" class="block text-gray-700 font-medium mb-2">Price</label>
+            <input type="number" id="product_price" name="product_price" [(ngModel)]="product.product_price" required class="block w-full border border-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="stock" class="block text-gray-700 font-medium mb-2">Stock Quantity</label>
+            <input type="number" id="stock" name="stock" [(ngModel)]="product.stock" required class="block w-full border border-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="product_image" class="block text-gray-700 font-medium mb-2">Upload Image</label>
+            <input type="file" id="product_image" (change)="onFileSelected($event)" class="block w-full border border-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="categories" class="block text-gray-700 font-medium mb-2">Select Categories</label>
+            <div *ngFor="let category of categories" class="flex items-center mb-2">
+              <input type="checkbox" [value]="category.category_id" (change)="onCategoryChange($event)" class="mr-2 rounded">
+              <span>{{ category.category_name }}</span>
+            </div>
+          </div>
+          <div>
+            <label for="sizes" class="block text-gray-700 font-medium mb-2">Choose Drinks</label>
+            <div *ngFor="let size of sizes" class="flex items-center mb-2">
+              <input type="checkbox" [value]="size.size_id" (change)="onSizeChange($event)" class="mr-2 rounded">
+              <span>{{ size.size_label }}</span>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-gray-900 text-white py-3 px-4 rounded-lg shadow-lg hover:bg-blue-600 transition duration-200 mt-6">Create Product</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Fixed Box for Creating Categories and Sizes -->
+  <div class="fixed bottom-4 right-4 z-50 space-y-2">
+    <button (click)="toggleModal('category')" class="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 py-3 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-800 transition duration-200">
+      Add Category
+    </button>
+    <button (click)="toggleModal('size')" class="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 py-3 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-800 transition duration-200">
+      Add Drinks
+    </button>
+  </div>
+
+  <!-- Overlay and Popup for Creating Category -->
+  <div *ngIf="showCategoryModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white rounded-lg shadow-2xl p-8 max-w-sm w-full relative">
+      <!-- Close Button -->
+      <button (click)="showCategoryModal = false" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      <h4 class="text-lg font-semibold mb-4">Add New Category</h4>
+      <form (ngSubmit)="createCategory()">
+        <input type="text" [(ngModel)]="newCategoryName" name="categoryName" placeholder="Category Name" required class="block w-full border border-gray-300 rounded-lg p-4 mb-4 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 px-4 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-800 transition duration-200">Add Category</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Overlay and Popup for Creating Size -->
+  <div *ngIf="showSizeModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white rounded-lg shadow-2xl p-8 max-w-sm w-full relative">
+      <!-- Close Button -->
+      <button (click)="showSizeModal = false" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      <h4 class="text-lg font-semibold mb-4">Add New Drinks</h4>
+      <form (ngSubmit)="createSize()">
+        <input type="text" [(ngModel)]="newSizeLabel" name="sizeLabel" placeholder="Drinks Name" required class="block w-full border border-gray-300 rounded-lg p-4 mb-4 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 px-4 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-800 transition duration-200">Add Drinks</button>
+      </form>
+    </div>
+  </div>
+</div>

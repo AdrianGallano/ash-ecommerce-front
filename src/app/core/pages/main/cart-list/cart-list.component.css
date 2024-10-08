@@ -1,0 +1,79 @@
+/* Add your custom styles here */
+
+.container {
+  max-width: 1200px;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+.text-red-500 {
+  color: #ef4444;
+}
+
+.text-red-700 {
+  color: #b91c1c;
+}
+
+.bg-blue-700 {
+  background-color: #3b82f6;
+}
+
+.bg-blue-800 {
+  background-color: #2563eb;
+}
+
+.focus\:ring-blue-300:focus {
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.5);
+}
+
+.custom-checkbox {
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
+  appearance: none;
+  border: 2px solid #ccc;
+  border-radius: 0.25rem; /* 4px */
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-checkbox:checked {
+  background-color: #111827;
+  border-color: #050505;
+  color: white;
+  position: relative;
+}
+
+.custom-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Hide the number input spinner arrows for Webkit browsers (Chrome, Safari) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the number input spinner arrows for Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

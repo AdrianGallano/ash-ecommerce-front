@@ -1,0 +1,27 @@
+<div *ngIf="userExists; else loginTemplate" class="relative cursor-pointer">
+  <button (click)="toggleDropdown()" type="button" class="flex items-center bg-gray-900 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 p-1 space-x-2">
+    <img class="w-8 h-8 rounded-full object-cover" [src]="userInfo.avatar || 'assets/images/product/user.png'" alt="User Image" />
+    <span class="text-sm text-white">{{ userInfo.username }}</span>
+  </button>
+  <div class="absolute right-0 z-50 mt-2 w-48 bg-white rounded-lg shadow-lg dark:bg-gray-800" [class.hidden]="!isOpen">
+    <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+      <p class="text-sm font-medium text-gray-900 dark:text-white">{{ userInfo.username }}</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">{{ userInfo.email }}</p>
+    </div>
+    <ul class="py-2">
+      <li *ngIf="userInfo.user_id === 1">
+        <button routerLink="/admin" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors">Admin</button>
+      </li>
+      <li>
+        <a href="./profile" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors">Profile</a>
+      </li>
+      <li>
+        <button (click)="signOut()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors">Sign out</button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #loginTemplate>
+  <button routerLink="/login" class="text-sm bg-blue-500 rounded-lg hover:bg-blue-600 text-white px-4 py-2 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-600">Login</button>
+</ng-template>
